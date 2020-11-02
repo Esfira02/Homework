@@ -1,0 +1,81 @@
+**PROBLEM1**
+
+function permutations(arr, maxLength) {
+    for (let j = 1; j <= maxLength; j++) {
+      helper(arr, j, "", arr.length);
+    } 
+}
+
+
+function helper(arr, maxLength, str, n) {
+  if (maxLength === 0) {
+    console.log(str);
+    return;
+  }
+
+  for (let i = 0; i < n; i++) {
+    result = str + arr[i];
+    helper(arr, maxLength - 1, result, n);
+  }
+}  
+
+
+permutations(['a','b'], 2);
+
+
+**PROBLEM2**
+
+function sortTwoDArray(a) {
+  a = transpose(a);
+  for (let i = 0; i < a.length; i++) {
+    sortArray(a[i],true);
+  }
+  a = transpose(a);
+  for (let i = 0; i < a.length; i++) {
+    sortArray(a[i],false);
+  }
+  return a;
+}
+
+
+function sortArray(arr, descending) {
+  n = arr.length;
+  for (let i = 1; i < n; i++) {
+    current = arr[i];
+    j = i;
+    while (j > 0 && arr[j - 1] > current) {
+      arr[j] = arr[j - 1];
+      j--;
+    }
+    arr[j] = current;
+  }
+
+  if (descending) {
+    for (let i = 0; i < Math.floor(n / 2); i++) {
+      temp = arr[i];
+      arr[i] = arr[n - 1 - i];
+      arr[n - 1 - i] = temp;
+    }
+  }  
+  return arr;
+}
+
+function transpose(a) {
+  let matrix = [];
+  for (let i = 0; i < a.length; i++) {
+    row = a[i];
+    for (let j = 0; j < row.length; j++) {
+      if (matrix[j] === undefined) {
+        matrix[j] = [];
+      }
+      matrix[j][i] = a[i][j]
+    }
+  }
+  return matrix;
+}
+
+a = [[3,2,1],
+     [9,8,7],
+     [6,5,4]];
+     
+sortTwoDArray(a);
